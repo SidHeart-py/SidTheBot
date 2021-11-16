@@ -74,6 +74,13 @@ def get_quote():
     return f'```\n{quote}\n -{author}\n```'
 
 
+def get_pickup_line():
+    response = requests.get(
+        'https://jokeandpickupapi.herokuapp.com/pickup/random')
+    response = response.json()
+    return response['title'], response['body']
+
+
 @client.event
 async def on_ready():
     print(f'We have logged in as {client.user}')
@@ -94,7 +101,7 @@ async def on_message(message):
         else:
             command = msg.split('sid ', 1)[1]
             if command == 'help':
-                help_message = "```\nI can:\n  entertain you with a joke just type 'sid joke',\n  inspire you with a quote just type 'sid quote'\n```"
+                help_message = "```\nI can:\n  entertain you with a joke just type 'sid joke',\n  inspire you with a quote just type 'sid quote',\n  type 'sid gif {anything}'' and you'll get a random gif for {anything},\n   type 'sid pickup line' for a pickup line,\n  type 'sid define {anything}' for a proper defination```"
                 await message.channel.send(help_message)
             elif command == 'quote':
                 await message.channel.send(get_quote())
@@ -118,6 +125,11 @@ async def on_message(message):
                     await message.channel.send(embed=embed)
                 except :
                     await message.channel.send(f"What the hell is {command} ?")
+            elif command.startswith('pickup line'):
+              pickup_line = get_pickup_line()
+              await message.channel.send(pickup_line[0])
+              await asyncio.sleep(5)
+              await message.channel.send(pickup_line[1])
             else:
               await message.channel.send(f"What the hell is {command} ?")
 
