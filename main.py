@@ -6,6 +6,8 @@ from server import keep_alive
 import asyncio
 from random import choice
 
+# invite link https://discord.com/api/oauth2/authorize?client_id=866647277056294933&permissions=534723950656&scope=bot
+
 my_discord_key = os.environ['DiscordKey']
 my_tenorAPI_key = os.environ['tenorAPIkey']
 
