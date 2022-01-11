@@ -129,9 +129,9 @@ async def on_message(message):
                     await message.channel.send(f"What the hell is {command} ?")
             elif command.startswith('pickup line'):
               pickup_line = get_pickup_line()
-              await message.channel.send(pickup_line[0])
+              await message.channel.send('```\n' + pickup_line[0] + '\n```')
               await asyncio.sleep(5)
-              await message.channel.send(pickup_line[1])
+              await message.channel.send('```\n' + pickup_line[1] + '\n```')
             else:
               await message.channel.send(f"What the hell is {command} ?")
 
