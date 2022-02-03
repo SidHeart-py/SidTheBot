@@ -83,6 +83,12 @@ def get_pickup_line():
     return response['title'], response['body']
 
 
+def get_insult():
+    response = requests.get(
+    'https://evilinsult.com/generate_insult.php?lang=en&type=json')
+    response = response.json()
+    return response['insult']
+
 @client.event
 async def on_ready():
     print(f'We have logged in as {client.user}')
@@ -103,7 +109,7 @@ async def on_message(message):
         else:
             command = msg.split('sid ', 1)[1]
             if command == 'help':
-                help_message = "```\nI can:\n  entertain you with a joke just type 'sid joke',\n  inspire you with a quote just type 'sid quote',\n  type 'sid gif {anything}'' and you'll get a random gif for {anything},\n   type 'sid pickup line' for a pickup line,\n  type 'sid define {anything}' for a proper defination```"
+                help_message = "```\nI can:\n  entertain you with a joke just type 'sid joke',\n  inspire you with a quote just type 'sid quote',\n  type 'sid gif {anything}'' and you'll get a random gif for {anything},\n   type 'sid pickup line' for a pickup line,\n  type 'sid define {anything}' for a proper defination,\n will give you a insult by typing 'sid insult'```"
                 await message.channel.send(help_message)
             elif command == 'quote':
                 await message.channel.send(get_quote())
@@ -132,6 +138,9 @@ async def on_message(message):
               await message.channel.send('```\n' + pickup_line[0] + '\n```')
               await asyncio.sleep(5)
               await message.channel.send('```\n' + pickup_line[1] + '\n```')
+            elif command.startswith('insult'):
+              insult = get_insult()
+              await message.channel.send('```\n' + insult + '\n```')
             else:
               await message.channel.send(f"What the hell is {command} ?")
 
