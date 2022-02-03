@@ -1,6 +1,6 @@
 # SidTheBot Discord Bot
 
-[click here to invite]{https://discord.com/api/oauth2/authorize?client_id=866647277056294933&permissions=534723950656&scope=bot}
+[click here to invite](https://discord.com/api/oauth2/authorize?client_id=866647277056294933&permissions=534723950656&scope=bot)
 
 ## Command working
 
